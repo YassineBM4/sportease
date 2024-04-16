@@ -1,0 +1,122 @@
+{% extends 'backend.html.twig' %}
+
+{% block title %} List of users {% endblock %}
+
+{% block body %}
+
+<div class="container-fluid position-relative d-flex p-0">
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Sidebar Start -->
+    <div class="sidebar pe-4 pb-3">
+        <nav class="navbar bg-secondary navbar-dark">
+            <div class="logo">
+                <a href="backendHome">
+                    <img src="img/logos.png" alt="" style="height: 60px; width: 60px; transform: translateX(15px);">
+                    <img src="img/tran.png" alt="" style="height: 50px; width: 150px; transform: translateX(15px);">
+                </a>
+            </div>
+            <div class="navbar-nav w-100">
+                <br>
+                <a href="backendHome" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>User managment</a>
+                    <div class="dropdown-menu bg-transparent border-0">
+                        <a href="UsersList" class="dropdown-item active">List of users</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Sidebar End -->
+
+
+    <!-- Content Start -->
+    <div class="content">
+         <!-- Navbar Start -->
+         <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+            <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                <h2 class="text-primary mb-0"><i class="fa fa-user-edit"></i></h2>
+            </a>
+            <a href="#" class="sidebar-toggler flex-shrink-0">
+                <i class="fa fa-bars"></i>
+            </a>
+            <form class="d-none d-md-flex ms-4">
+                <input class="form-control bg-dark border-0" type="search" placeholder="Search">
+            </form>
+            <div class="navbar-nav align-items-center ms-auto">
+                <div class="nav-item dropdown">
+                    {% if app.user!=null %}
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <img class="rounded-circle me-lg-2" src="{{asset('img/logos.png')}}" alt="" style="width: 40px; height: 40px;">
+                        <span class="d-none d-lg-inline-flex">{{app.user.getPrenom()}}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                        <a href="adminProfile" class="dropdown-item">My Profile</a>
+                        <a href="logout" class="dropdown-item">Log Out</a>
+                    </div>
+                    {% endif %}
+                    {% if app.user==null %}
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <img class="rounded-circle me-lg-2" src="{{asset('img/logos.png')}}" alt="" style="width: 40px; height: 40px;">
+                        <span class="d-none d-lg-inline-flex">Guest</span>
+                    </a>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar End -->
+
+        <!-- Recent Sales Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-secondary text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Recent users</h6>
+                </div>
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <thead>
+                            <tr class="text-white">
+                                <th scope="col">Identity number</th>
+                                <th scope="col">First name</th>
+                                <th scope="col">Last name</th>
+                                <th scope="col">E-mail address</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in table %}
+                            <tr>
+                                <td>{{i.getCin()}}</td>
+                                <td>{{i.getPrenom()}}</td>
+                                <td>{{i.getNom()}}</td>
+                                <td>{{i.getEmail()}}</td>
+                                <td>{{i.getAddress()}}</td>
+                                <td><a class="btn btn-sm btn-primary" href="{{path('editUser',{'id':i.id})}}">Edit</a>
+                                    <a class="btn btn-sm btn-primary" href="{{path('deleteProfile',{'id':i.id})}}">Delete</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Recent Sales End -->
+    </div>
+    <!-- Content End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</div>
+
+{% endblock %}

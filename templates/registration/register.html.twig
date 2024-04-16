@@ -1,0 +1,350 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block body %}
+
+<style>
+    .form-group input{
+        background: transparent;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        width: 100%;
+        height: 80%;
+        transform: translateY(-20%);
+        outline: none;
+        color: white;
+        font-weight: 600;
+    }
+
+    .form-group label {
+    position:relative;
+    top: 20%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: #dc3545;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.form-group input:focus~label,
+.form-group input:valid~label {
+    top: -5px;
+}
+.wrapper{
+    position:relative;
+    width: 500px;
+    height: 870px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,.5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(330px);
+}
+
+.wrapper .form-box {
+    width: 100%;
+    padding: 40px;
+}
+
+.form-box h2 {
+    font-size: 2em;
+    color: #dc3545;
+    text-align: center;
+}
+
+.input-box {
+    transform: translateY(50%);
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid #dc3545;
+    margin: 20px 0;
+}
+
+.input-box label {
+    position: absolute;
+    top: 20%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: #dc3545;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label {
+    top: -5px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    transform: translateY(90%);
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #dc3545;
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+}
+
+.input-box .icon {
+    position: absolute;
+    right: 8px;
+    font-size: 1.2em;
+    color: white;
+    line-height: 57px;
+}
+
+.remember-forgot {
+    font-size: .9em;
+    color: #dc3545;
+    font-weight: 500;
+    margin: -15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.remember-forgot label input {
+    accent-color: #dc3545;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: #dc3545;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.button {
+    width: 100%;
+    height: 45px;
+    background: #b00505;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: white;
+    font-weight: 500;
+}
+
+.login-register {
+    font-size: .9em;
+    color: #dc3545;
+    text-align: center;
+    font-weight: 500;
+    margin: 25px 0 10px;
+}
+
+.login-register p a {
+    color: #dc3545;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-register p a:hover {
+    text-decoration: underline;
+}
+</style>
+
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Header Section Begin -->
+<header class="header-section">
+    <div class="container-fluid">
+        <div class="logo">
+            <a href="home">
+                <img src="img/logos.png" alt="" style="height: 60px; width: 60px; transform: translateY(-10px);">
+                <img src="img/tran.png" alt="" style="height: 50px; width: 150px; transform: translateY(-10px);">
+            </a>
+        </div>
+        <div class="container">
+            <div class="nav-menu">
+                <nav class="mainmenu mobile-menu">
+                    <ul>
+                        <li><a href="home">Home</a></li>
+                        <li><a href="aboutUs">About us</a></li>
+                        <li><a href="schedule">Schedule</a></li>
+                        <li><a href="gallery">Gallery</a></li>
+                        <li><a href="blog">Blog</a></li>
+                        <li><a href="contact">Contacts</a></li>
+                        {% if app.user==null %}
+                        <a href="register" class="primary-btn" style="transform: translateX(100%);">SIGN UP</a>
+                        {% endif %}
+                        {% if app.user!=null %}
+                        <a href=""><img src="img/profile.png" class="profile"></a>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+    </div>
+</header>
+<!-- Header End -->
+
+<!-- Price Plan Section Begin -->
+<section class="price-section spad set-bg" data-setbg="img/price-bg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <!--<p>These reports started to surface when Congress was having hearings about the<br />
+                        painkiller, Vioxx. A Food and Drug Administration staff member.</p>-->
+                </div>
+                <div class="toggle-option">
+                    <div class="wrapper">
+                        <div class="form-box">
+                            <h2>SIGN UP NOW !</h2>
+                                {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+                                <div class="form-group">
+                                    <label style="font-size: 16px; transform: translateY(80%); padding-right: 140%; width: 160%;">First name</label>
+                                    {{ form_widget(form.prenom, {'attr': {'class': 'input-box'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-size: 16px; transform: translateY(80%); padding-right: 140%; width: 160%;">Last name</label>
+                                    {{ form_widget(form.nom, {'attr': {'class': 'input-box'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-size: 16px; transform: translateY(80%); padding-right: 125%; width: 150%;">Email address</label>
+                                    {{ form_widget(form.email, {'attr': {'class': 'input-box'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-size: 16px; transform: translateY(80%); padding-right: 140%; width: 170%;">Identity number</label>
+                                    {{ form_widget(form.cin, {'attr': {'class': 'input-box'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-size: 16px; transform: translateY(80%); padding-right: 132%; width: 150%;">Address</label>
+                                    {{ form_widget(form.address, {'attr': {'class': 'input-box'}}) }}
+                                </div>
+                                <div class="form-group">
+                                    <label style="font-size: 16px; transform: translateY(80%); padding-right: 118%; width: 137%;">Password</label>
+                                    {{ form_widget(form.password, {'attr': {'class': 'input-box'}}) }}
+                                </div>
+                                {{ form_row(form.Sign_up, {'attr': {'class': 'button'}}) }}
+                                <div class="login-register">
+                                    <p style="color: white;">You have an account ?
+                                        <a href="login" class="register-link"> Log in now !</a>
+                                    </p>
+                                </div>
+                                {{form_end(form)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+<!-- Price Plan Section End -->
+
+<!-- Footer Section Begin -->
+<footer class="footer-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="footer-logo-item">
+                    <div class="f-logo">
+                        <img src="img/logos.png" alt="" style="height: 60px; width: 60px; transform: translateY(-10px);">
+                <img src="img/tran.png" alt="" style="height: 50px; width: 150px; transform: translateY(-10px);">
+                    </div>
+                    <p>Despite growth of the Internet over the past seven years, the use of toll-free phone numbers
+                        in television advertising continues.</p>
+                    <div class="social-links">
+                        <h6>Follow us</h6>
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 offset-lg-1">
+                <div class="footer-widget">
+                    <h5>Our Blog</h5>
+                    <div class="footer-blog">
+                        <a href="#" class="fb-item">
+                            <h6>Most people who work</h6>
+                            <span class="blog-time"><i class="fa fa-clock-o"></i> Jan 02, 2019</span>
+                        </a>
+                        <a href="#" class="fb-item">
+                            <h6>Freelance Design Tricks How </h6>
+                            <span class="blog-time"><i class="fa fa-clock-o"></i> Jan 02, 2019</span>
+                        </a>
+                        <a href="#" class="fb-item">
+                            <h6>have a computer at home have had </h6>
+                            <span class="blog-time"><i class="fa fa-clock-o"></i> Jan 02, 2019</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="footer-widget">
+                    <h5>Program</h5>
+                    <ul class="workout-program">
+                        <li><a href="#">Bodybuilding</a></li>
+                        <li><a href="#">Running</a></li>
+                        <li><a href="#">Streching</a></li>
+                        <li><a href="#">Weight Loss</a></li>
+                        <li><a href="#">Gym Fitness</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="footer-widget">
+                    <h5>Get Info</h5>
+                    <ul class="footer-info">
+                        <li>
+                            <i class="fa fa-phone"></i>
+                            <span>Phone:</span>
+                            (12) 345 6789
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope-o"></i>
+                            <span>Email:</span>
+                            Colorlib.info@gmail.com
+                        </li>
+                        <li>
+                            <i class="fa fa-map-marker"></i>
+                            <span>Address</span>
+                            Iris Watson, Box 283 8562, NY
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-text">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="ct-inside"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> 
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Section End -->
+
+{% endblock %}

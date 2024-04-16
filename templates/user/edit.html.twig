@@ -1,0 +1,314 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit profile{% endblock %}
+
+{% block body %}
+
+<style>
+body{
+    background-image: url("img/hero-slider/hero-2.jpg");
+}
+
+.ui-w-80 {
+    width : 80px !important;
+    height: auto;
+}
+
+.btn-default {
+    border-color: rgba(24, 28, 33, 0.1);
+    background  : rgba(0, 0, 0, 0);
+    color       : #4E5155;
+}
+
+label.btn {
+    margin-bottom: 0;
+}
+
+.btn-outline-primary {
+    border-color: #dc3545;
+    background  : transparent;
+    color       : #dc3545;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.text-light {
+    color: #babbbc !important;
+}
+
+.btn-facebook {
+    border-color: rgba(0, 0, 0, 0);
+    background  : #3B5998;
+    color       : #fff;
+}
+
+.btn-instagram {
+    border-color: rgba(0, 0, 0, 0);
+    background  : #000;
+    color       : #fff;
+}
+
+.card {
+    background-clip: padding-box;
+    box-shadow     : 0 1px 4px rgba(24, 28, 33, 0.012);
+}
+
+.row-bordered {
+    overflow: hidden;
+}
+
+.account-settings-fileinput {
+    position  : absolute;
+    visibility: hidden;
+    width     : 1px;
+    height    : 1px;
+    opacity   : 0;
+}
+
+.account-settings-links .list-group-item.active {
+    font-weight: bold !important;
+}
+
+html:not(.dark-style) .account-settings-links .list-group-item.active {
+    background: transparent !important;
+}
+
+.account-settings-multiselect~.select2-container {
+    width: 100% !important;
+}
+
+.light-style .account-settings-links .list-group-item {
+    padding     : 0.85rem 1.5rem;
+    border-color: rgba(24, 28, 33, 0.03) !important;
+}
+
+.light-style .account-settings-links .list-group-item.active {
+    color: #4e5155 !important;
+}
+
+.material-style .account-settings-links .list-group-item {
+    padding     : 0.85rem 1.5rem;
+    border-color: rgba(24, 28, 33, 0.03) !important;
+}
+
+.material-style .account-settings-links .list-group-item.active {
+    color: #4e5155 !important;
+}
+
+.dark-style .account-settings-links .list-group-item {
+    padding     : 0.85rem 1.5rem;
+    border-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+.dark-style .account-settings-links .list-group-item.active {
+    color: #fff !important;
+}
+
+.light-style .account-settings-links .list-group-item.active {
+    color: #4E5155 !important;
+}
+
+.light-style .account-settings-links .list-group-item {
+    padding     : 0.85rem 1.5rem;
+    border-color: rgba(24, 28, 33, 0.03) !important;
+}
+</style>
+
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Header Section Begin -->
+<header class="header-section header-normal">
+    <div class="container-fluid">
+        <div class="logo">
+            <a href="home">
+                <img src="img/logos.png" alt="" style="height: 60px; width: 60px; transform: translateY(-10px);">
+                <img src="img/tran.png" alt="" style="height: 50px; width: 150px; transform: translateY(-10px);">
+            </a>
+        </div>
+        
+        <div class="container">
+            <div class="nav-menu">
+                <nav class="mainmenu mobile-menu">
+                    <ul>
+                        <li><a href="home">Home</a></li>
+                        <li><a href="aboutUs">About us</a></li>
+                        <li><a href="schedule">Schedule</a></li>
+                        <li><a href="gallery">Gallery</a></li>
+                        <li><a href="blog">Blog</a></li>
+                        <li><a href="contact">Contacts</a></li>
+                        {% if app.user==null %}
+                        <a href="register" class="primary-btn" style="transform: translateX(100%);">SIGN UP</a>
+                        {% endif %}
+                        {% if app.user!=null %}
+                        <a href="profile"><img src="img/profile.png" class="profile"></a>
+                        <a href="logout"><img src="img/logout.png" class="profile"></a>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>  
+        <div id="mobile-menu-wrap"></div>
+    </div>
+</header>
+<!-- Header End -->
+
+<div class="container light-style flex-grow-1 container-p-y">
+    <br>
+    <div class="card overflow-hidden">
+        <div class="row no-gutters row-bordered row-border-light">
+            <div class="col-md-3 pt-0">
+                <div class="list-group list-group-flush account-settings-links">
+                    <a class="list-group-item list-group-item-action active" data-toggle="list"
+                        href="#account-general">Edit your profile</a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="account-general">
+                        <div class="card-body media align-items-center">
+                            <img src="img/logos.png" alt class="d-block ui-w-80">
+                            <div class="media-body ml-4">
+                                <label class="btn btn-outline-primary">
+                                    Upload new photo
+                                    <input type="file" class="account-settings-fileinput">
+                                </label> &nbsp;
+                                <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
+                            </div>
+                        </div>
+                        <hr class="border-light m-0">
+                        <div class="card-body">
+                            {{ form_start(form) }}
+                            <div class="form-group">
+                                <label class="form-label">First name</label>
+                                {{ form_widget(form.prenom, {'attr': {'class': 'input-box'}}) }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name</label>
+                                {{ form_widget(form.nom, {'attr': {'class': 'input-box'}}) }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">E-mail</label>
+                                {{ form_widget(form.email, {'attr': {'class': 'input-box'}}) }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Identity number</label>
+                                {{ form_widget(form.cin, {'attr': {'class': 'input-box'}}) }}
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Address</label>
+                                {{ form_widget(form.address, {'attr': {'class': 'input-box'}}) }}
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="text-right mt-3">
+                        {{ form_widget(form.Save_changes, {'attr': {'style':'background-color: #dc3545; border-color: #dc3545; transform: translateX(-10px);'}}) }}
+                        <a href="profile"><button type="button" class="btn btn-default" style="transform: translateX(-10px);">Cancel</button></a>
+                    </div>
+                    {{ form_end(form) }}
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+
+<!-- Footer Section Begin -->
+<footer class="footer-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="footer-logo-item">
+                    <div class="f-logo">
+                        <img src="img/logos.png" alt="" style="height: 60px; width: 60px; transform: translateY(-10px);">
+                <img src="img/tran.png" alt="" style="height: 50px; width: 150px; transform: translateY(-10px);">
+                    </div>
+                    <p>Despite growth of the Internet over the past seven years, the use of toll-free phone numbers
+                        in television advertising continues.</p>
+                    <div class="social-links">
+                        <h6>Follow us</h6>
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 offset-lg-1">
+                <div class="footer-widget">
+                    <h5>Our Blog</h5>
+                    <div class="footer-blog">
+                        <a href="#" class="fb-item">
+                            <h6>Most people who work</h6>
+                            <span class="blog-time"><i class="fa fa-clock-o"></i> Jan 02, 2019</span>
+                        </a>
+                        <a href="#" class="fb-item">
+                            <h6>Freelance Design Tricks How </h6>
+                            <span class="blog-time"><i class="fa fa-clock-o"></i> Jan 02, 2019</span>
+                        </a>
+                        <a href="#" class="fb-item">
+                            <h6>have a computer at home have had </h6>
+                            <span class="blog-time"><i class="fa fa-clock-o"></i> Jan 02, 2019</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="footer-widget">
+                    <h5>Program</h5>
+                    <ul class="workout-program">
+                        <li><a href="#">Bodybuilding</a></li>
+                        <li><a href="#">Running</a></li>
+                        <li><a href="#">Streching</a></li>
+                        <li><a href="#">Weight Loss</a></li>
+                        <li><a href="#">Gym Fitness</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="footer-widget">
+                    <h5>Get Info</h5>
+                    <ul class="footer-info">
+                        <li>
+                            <i class="fa fa-phone"></i>
+                            <span>Phone:</span>
+                            (12) 345 6789
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope-o"></i>
+                            <span>Email:</span>
+                            Colorlib.info@gmail.com
+                        </li>
+                        <li>
+                            <i class="fa fa-map-marker"></i>
+                            <span>Address</span>
+                            Iris Watson, Box 283 8562, NY
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-text">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="ct-inside"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> 
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Section End -->
+
+{% endblock %}
