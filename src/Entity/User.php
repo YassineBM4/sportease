@@ -57,6 +57,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $address = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $enabled = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $userRole = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -190,6 +196,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAddress(string $address): static
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    public function isEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(?bool $enabled): static
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function getUserRole(): ?string
+    {
+        return $this->userRole;
+    }
+
+    public function setUserRole(string $userRole): static
+    {
+        $this->userRole = $userRole;
 
         return $this;
     }

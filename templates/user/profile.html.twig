@@ -6,7 +6,7 @@
 
 <style>
 body{
-    background-image: url("img/hero-slider/hero-2.jpg");
+    background-image: url("img/hero-slider/sport.jpeg");
 }
 
 .ui-w-80 {
@@ -135,18 +135,12 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
             <div class="nav-menu">
                 <nav class="mainmenu mobile-menu">
                     <ul>
-                        <li><a href="home">Home</a></li>
-                        <li><a href="aboutUs">About us</a></li>
-                        <li><a href="schedule">Schedule</a></li>
-                        <li><a href="gallery">Gallery</a></li>
-                        <li><a href="blog">Blog</a></li>
-                        <li><a href="contact">Contacts</a></li>
                         {% if app.user==null %}
                         <a href="register" class="primary-btn" style="transform: translateX(100%);">SIGN UP</a>
                         {% endif %}
                         {% if app.user!=null %}
-                        <a href="profile"><img src="img/profile.png" class="profile"></a>
-                        <a href="logout"><img src="img/logout.png" class="profile"></a>
+                        <a href="profile"><img src="img/profile.png" class="profile" style="transform: translateX(550px);"></a>
+                        <a href="logout"><img src="img/logout.png" class="profile" style="transform: translateX(550px);"></a>
                         {% endif %}
                     </ul>
                 </nav>

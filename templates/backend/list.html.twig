@@ -85,24 +85,29 @@
                     <table class="table text-start align-middle table-bordered table-hover mb-0">
                         <thead>
                             <tr class="text-white">
-                                <th scope="col">Identity number</th>
                                 <th scope="col">First name</th>
                                 <th scope="col">Last name</th>
                                 <th scope="col">E-mail address</th>
                                 <th scope="col">Address</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for i in table %}
                             <tr>
-                                <td>{{i.getCin()}}</td>
                                 <td>{{i.getPrenom()}}</td>
                                 <td>{{i.getNom()}}</td>
                                 <td>{{i.getEmail()}}</td>
                                 <td>{{i.getAddress()}}</td>
+                                <td>{{i.isEnabled()}}</td>
                                 <td><a class="btn btn-sm btn-primary" href="{{path('editUser',{'id':i.id})}}">Edit</a>
-                                    <a class="btn btn-sm btn-primary" href="{{path('deleteProfile',{'id':i.id})}}">Delete</a></td>
+                                    <a class="btn btn-sm btn-primary" href="{{path('deleteProfile',{'id':i.id})}}">Delete</a>
+                                    <form id="blockForm" action="{{ path('app_adminblockuser', { 'id': i.id }) }}" method="POST">
+                                        <a class="btn btn-sm btn-primary" href="{{ path('app_adminblockuser', { 'id': i.id }) }}" onclick="return confirm('Are you sure you want to block  ?')">
+                                            Block
+                                        </a>
+                                    </form>
                             </tr>
                             {% endfor %}
                         </tbody>

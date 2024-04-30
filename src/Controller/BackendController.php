@@ -88,4 +88,15 @@ class BackendController extends AbstractController
         $m->flush();
         return $this->redirectToRoute('backendHome');
     }
+
+    #[Route('/adminblockuser/{id}', name: 'app_adminblockuser')]
+    public function adminblockuser($id, UserRepository $userRepository, ManagerRegistry $managerRegistry ): Response
+    {
+        $em = $managerRegistry->getManager();
+        $data = $userRepository->find($id);
+        $data->setEnabled(!$data->isEnabled());
+        $em->persist($data);
+        $em->flush();
+        return $this->redirectToRoute('UsersList');  
+    }
 }

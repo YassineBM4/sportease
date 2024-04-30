@@ -1,8 +1,134 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Home {% endblock %}
+{% block title %}Reset your password{% endblock %}
 
 {% block body %}
+<style>
+.wrapper{
+    position: relative;
+    width: 400px;
+    height: 440px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,.5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(380px);
+}
+
+.wrapper .form-box {
+    width: 100%;
+    padding: 40px;
+}
+
+.form-box h2 {
+    font-size: 2em;
+    color: #70C573;
+    text-align: center;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 30px;
+    border-bottom: 2px solid #70C573;
+    margin: 30px 0;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: #70C573;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label {
+    top: -15px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: white;
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+}
+
+.input-box .icon {
+    position: absolute;
+    right: 8px;
+    font-size: 1.2em;
+    color: #70C573;
+    line-height: 57px;
+}
+
+.remember-forgot {
+    font-size: .9em;
+    color: #70C573;
+    font-weight: 500;
+    margin: -15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.remember-forgot label input {
+    accent-color: #70C573;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: #70C573;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.button {
+    width: 100%;
+    height: 45px;
+    background: #70C573;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: white;
+    font-weight: 500;
+}
+
+.login-register {
+    font-size: .9em;
+    color: #70C573;
+    text-align: center;
+    font-weight: 500;
+    margin: 25px 0 10px;
+}
+
+.login-register p a {
+    color: #70C573;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-register p a:hover {
+    text-decoration: underline;
+}
+</style>
 
 <!-- Page Preloder -->
 <div id="preloder">
@@ -23,11 +149,10 @@
                 <nav class="mainmenu mobile-menu">
                     <ul>
                         {% if app.user==null %}
-                        <a href="register" class="primary-btn" style="transform: translateX(350%);">SIGN UP/LOG IN</a>
+                        <a href="register" class="primary-btn" style="transform: translateX(350%);">SIGN UP</a>
                         {% endif %}
                         {% if app.user!=null %}
-                        <a href="profile"><img src="img/profile.png" class="profile" style="transform: translateX(550px);"></a>
-                         <a href="logout"><img src="img/logout.png" class="profile" style="transform: translateX(550px);"></a>
+                        <a href=""><img src="img/profile.png" class="profile"></a>
                         {% endif %}
                     </ul>
                 </nav>
@@ -38,25 +163,42 @@
 </header>
 <!-- Header End -->
 
-<!-- Hero Section Begin -->
-<section class="hero-section">
-    <div class="hero-items">
-        <div class="single-hero-item set-bg" data-setbg="img/hero-slider/sport.jpeg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="hero-text">
-                            <h2>Join Us Now</h2>
-                            <h1>FITNESS & SPORT</h1>
-                            <a href="#" class="primary-btn">Read More</a>
+<!-- Price Plan Section Begin -->
+<section class="price-section spad set-bg" data-setbg="img/hero-slider/sport.jpeg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <!--<p>These reports started to surface when Congress was having hearings about the<br />
+                        painkiller, Vioxx. A Food and Drug Administration staff member.</p>-->
+                        <br><br>
+                </div>
+                <div class="toggle-option">
+                    <div class="wrapper">
+                        <div class="form-box">
+                            <h2 style="transform: translateY(-40px);">Reset your password</h2>
+                            <p style="color: aliceblue;">Enter your email address, and we will send you a link to reset your password.</p>
+                            {% for flash_error in app.flashes('reset_password_error') %}
+                                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+                            {% endfor %}
+                            {{ form_start(requestForm) }}
+                            <div class="input-box">
+                                {{ form_widget(requestForm.email, {'attr': {'class': 'input-box'}}) }}
+                                <label>E-mail address</label>
+
+                            </div>
+                    
+                            <button class="btn btn-primary" style="background-color: #008000; border-color: #008000;">Send e-mail address</button>
+                        {{ form_end(requestForm) }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
     </div>
 </section>
-<!-- Hero End -->
+<!-- Price Plan Section End -->
 
 <!-- Footer Section Begin -->
 <footer class="footer-section">
@@ -65,7 +207,7 @@
             <div class="col-lg-3">
                 <div class="footer-logo-item">
                     <div class="f-logo">
-                            <img src="img/logos.png" alt="" style="height: 60px; width: 60px; transform: translateY(-10px);">
+                        <img src="img/logos.png" alt="" style="height: 60px; width: 60px; transform: translateY(-10px);">
                 <img src="img/tran.png" alt="" style="height: 50px; width: 150px; transform: translateY(-10px);">
                     </div>
                     <p>Despite growth of the Internet over the past seven years, the use of toll-free phone numbers
@@ -141,7 +283,8 @@
                 <div class="col-lg-12 text-center">
                     <div class="ct-inside"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> </div>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> 
+</div>
                 </div>
             </div>
         </div>

@@ -87,21 +87,21 @@
                     <table class="table text-start align-middle table-bordered table-hover mb-0">
                         <thead>
                             <tr class="text-white">
-                                <th scope="col">Identity number</th>
                                 <th scope="col">First name</th>
                                 <th scope="col">Last name</th>
                                 <th scope="col">E-mail address</th>
                                 <th scope="col">Address</th>
+                                <th scope="col">Status</th>
                             </tr>
                         </thead>
                         {% for i in table %}
                         <tbody>
                             <tr>
-                                <td>{{i.getCin()}}</td>
                                 <td>{{i.getPrenom()}}</td>
                                 <td>{{i.getNom()}}</td>
                                 <td>{{i.getEmail()}}</td>
                                 <td>{{i.getAddress()}}</td>
+                                <td>{{i.isEnabled()}}</td>
                             </tr>
                         </tbody>
                         {% endfor %}
